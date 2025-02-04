@@ -45,9 +45,9 @@ def check_dias(username: str) -> t.Optional[str]:
     return final
 
 
-@app.route('/checkUser',methods = ['POST', 'GET'])
+@app.route('/checkUser',methods = ['GET'])
 def check_user():
-    if request.method == 'POST':
+    if request.method == 'GET':
         try:
             req_data = request.get_json()
             user_get = req_data.get("user")
