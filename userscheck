@@ -14,7 +14,6 @@ user_exist() {
 
 cont_online() {
     limit="$(grep -w $user $database | cut -d' ' -f2)"
-    echo "limit: $limit"
     conssh="$(ps -u $user | grep sshd | wc -l)"
     [[ -z $limit ]] && limit="1"
     [[ $conssh -gt $limit ]] && screen -dmS pkill pkill.sh $user
@@ -23,7 +22,6 @@ cont_online() {
 
 limiter_user() {
     limit="$(grep -w $user $database | cut -d' ' -f2)"
-    echo "limit: $limit"
     [[ -z $limit ]] && limit="1"
     echo $limit
 }
