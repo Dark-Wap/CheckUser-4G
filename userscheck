@@ -2,8 +2,9 @@
 user=$1
 type=$2
 uniq /root/usuarios.db > /tmp/checkdb
-database="/tmp/checkdb"
-database="/root/usuarios.db"
+database1="/root/usuarios.db"
+database2="${SCPdir}/VPS-MXuser"
+
 user_exist() {
     [[ "$(grep -wc $user /etc/passwd)" != '0' ]] && {
         echo $user
@@ -13,7 +14,9 @@ user_exist() {
 }
 
 cont_online() {
-    limit="$(grep -w $user $database | cut -d' ' -f2)"
+    limit1="$(grep -w $user $database1 | cut -d' ' -f2)"
+    limit2="$(grep -w $user $database2 | cut -d' ' -f2)"
+    limit="${limit1:-$limit2}"
     conssh="$(ps -u $user | grep sshd | wc -l)"
     [[ -z $limit ]] && limit=0
     [[ $conssh -gt $limit ]] && screen -dmS pkill pkill.sh $user
@@ -21,7 +24,9 @@ cont_online() {
 }
 
 limiter_user() {
-    limit="$(grep -w $user $database | cut -d' ' -f2)"
+    limit1="$(grep -w $user $database1 | cut -d' ' -f2)"
+    limit2="$(grep -w $user $database2 | cut -d' ' -f2)"
+    limit="${limit1:-$limit2}"
     [[ -z $limit ]] && limit=0
     echo $limit
 }
@@ -58,7 +63,6 @@ datacheck_new() {
         echo 'Not exist'
     }
 }
-
 
 if [ $type -eq 1 ]; then
     user_exist
