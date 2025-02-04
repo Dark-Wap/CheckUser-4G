@@ -8,7 +8,7 @@ verif_ptrs() {
 			[[ "$porta" = "$pton" ]] && {
 				echo -e "\n\033[1;31mPORTA \033[1;33m$porta \033[1;31mEM USO PELO \033[1;37m$svcs\033[0m"
 				sleep 3
-				fun_chuser
+				fun_CheckUser
 			}
 		done
 	}
@@ -39,7 +39,7 @@ fun_bar() {
 		tput cnorm
 	}
 clear
-fun_chuser() {
+fun_CheckUser() {
     clear
 echo -e "\033[1;37m━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━\033[0m"
 echo ""
@@ -81,7 +81,7 @@ echo -e "\033[1;37m━━━━━━━━━━━━━━━━━━━━�
 				echo ""
 				echo -e "\033[1;32mCHECKUSER DESATIVADO COM SUCESSO!\033[1;33m"
 				sleep 3
-				fun_chuser
+				fun_CheckUser
 			else
 				clear
 				echo -e "\E[44;1;37m             CHECKUSER              \E[0m"
@@ -93,7 +93,7 @@ echo -e "\033[1;37m━━━━━━━━━━━━━━━━━━━━�
 					echo -e "\033[1;31mPorta inválida!"
 					sleep 3
 					clear
-					fun_chuser
+					fun_CheckUser
 				}
 				verif_ptrs $porta
 				fun_inisocks() {
@@ -113,7 +113,7 @@ echo -e "\033[1;37m━━━━━━━━━━━━━━━━━━━━�
 				echo ""
 				echo -e "\033[1;32mCHECKUSER ATIVADO COM SUCESSO\033[1;33m"
 				sleep 3
-				fun_chuser
+				fun_CheckUser
 			fi
    elif [[ "$resposta" = '0' ]]; then
         echo ""
@@ -125,7 +125,7 @@ echo -e "\033[1;37m━━━━━━━━━━━━━━━━━━━━�
         echo ""
         echo -e "\033[1;31mOpção inválida!\033[0m"
         sleep 1
-        fun_chuser
+        fun_CheckUser
     fi
 }
-fun_chuser
+fun_CheckUser
