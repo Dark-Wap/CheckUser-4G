@@ -1,6 +1,8 @@
 #!/bin/bash
 user=$1
 type=$2
+uniq /root/usuarios.db > /tmp/checkdb
+database="/tmp/checkdb"
 database="/root/usuarios.db"
 user_exist() {
     [[ "$(grep -wc $user /etc/passwd)" != '0' ]] && {
@@ -11,16 +13,18 @@ user_exist() {
 }
 
 cont_online() {
+    datauser=$(chage -l $user | grep -i co | awk -F : '{print $2}')
     limit="$(grep -w $user $database | cut -d' ' -f2)"
     conssh="$(ps -u $user | grep sshd | wc -l)"
-    [[ -z $limit ]] && limit="0"
+    [[ -z $limit ]] && limit="1"
     [[ $conssh -gt $limit ]] && screen -dmS pkill pkill.sh $user
     echo $conssh
 }
 
 limiter_user() {
+    datauser=$(chage -l $user | grep -i co | awk -F : '{print $2}')
     limit="$(grep -w $user $database | cut -d' ' -f2)"
-    [[ -z $limit ]] && limit="0"
+    [[ -z $limit ]] && limit="1"
     echo $limit
 }
 
