@@ -1,8 +1,8 @@
 #!/bin/bash
 user=$1
 type=$2
-uniq /etc/VPS-MX/VPS-MXuser > /tmp/checkdb
-database="/etc/VPS-MX/VPS-MXuser"
+uniq /root/usuarios.db > /tmp/checkdb
+database="/root/usuarios.db"
 
 user_exist() {
     [[ "$(grep -wc $user /etc/passwd)" != '0' ]] && {
