@@ -13,14 +13,14 @@ user_exist() {
 cont_online() {
     limit="$(grep -w $user $database | cut -d' ' -f2)"
     conssh="$(ps -u $user | grep sshd | wc -l)"
-    [[ -z $limit ]] && limit="$limit"
+    [[ -z $limit ]] && limit=""
     [[ $conssh -gt $limit ]] && screen -dmS pkill pkill.sh $user
     echo $conssh
 }
 
 limiter_user() {
     limit="$(grep -w $user $database | cut -d' ' -f2)"
-    [[ -z $limit ]] && limit="$limit"
+    [[ -z $limit ]] && limit=""
     echo $limit
 }
 
