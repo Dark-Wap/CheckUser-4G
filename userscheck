@@ -1,9 +1,8 @@
 #!/bin/bash
 user=$1
 type=$2
-uniq /root/usuarios.db > /tmp/checkdb
-database1="/root/usuarios.db"
-database2="/etc/VPS-MX/VPS-MXuser"
+uniq /etc/VPS-MX/VPS-MXuser > /tmp/checkdb
+database="/etc/VPS-MX/VPS-MXuser"
 
 user_exist() {
     [[ "$(grep -wc $user /etc/passwd)" != '0' ]] && {
@@ -14,10 +13,8 @@ user_exist() {
 }
 
 cont_online() {
-    limit1="$(grep -w $user $database1 | cut -d' ' -f2)"
-    limit2="$(grep -w $user $database2 | cut -d' ' -f2)"
-    echo "limit1: $limit1, limit2: $limit2"
-    limit="${limit1:-$limit2}"
+    limit="$(grep -w $user $database | cut -d' ' -f2)"
+    echo "limit: $limit"
     conssh="$(ps -u $user | grep sshd | wc -l)"
     [[ -z $limit ]] && limit="1"
     [[ $conssh -gt $limit ]] && screen -dmS pkill pkill.sh $user
@@ -25,10 +22,8 @@ cont_online() {
 }
 
 limiter_user() {
-    limit1="$(grep -w $user $database1 | cut -d' ' -f2)"
-    limit2="$(grep -w $user $database2 | cut -d' ' -f2)"
-    echo "limit1: $limit1, limit2: $limit2"
-    limit="${limit1:-$limit2}"
+    limit="$(grep -w $user $database | cut -d' ' -f2)"
+    echo "limit: $limit"
     [[ -z $limit ]] && limit="1"
     echo $limit
 }
