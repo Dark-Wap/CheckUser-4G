@@ -16,6 +16,7 @@ user_exist() {
 cont_online() {
     limit1="$(grep -w $user $database1 | cut -d' ' -f2)"
     limit2="$(grep -w $user $database2 | cut -d' ' -f2)"
+    echo "limit1: $limit1, limit2: $limit2"
     limit="${limit1:-$limit2}"
     conssh="$(ps -u $user | grep sshd | wc -l)"
     [[ -z $limit ]] && limit="1"
@@ -26,6 +27,7 @@ cont_online() {
 limiter_user() {
     limit1="$(grep -w $user $database1 | cut -d' ' -f2)"
     limit2="$(grep -w $user $database2 | cut -d' ' -f2)"
+    echo "limit1: $limit1, limit2: $limit2"
     limit="${limit1:-$limit2}"
     [[ -z $limit ]] && limit="1"
     echo $limit
