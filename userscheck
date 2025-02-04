@@ -18,7 +18,7 @@ cont_online() {
     limit2="$(grep -w $user $database2 | cut -d' ' -f2)"
     limit="${limit1:-$limit2}"
     conssh="$(ps -u $user | grep sshd | wc -l)"
-    [[ -z $limit ]] && limit=0
+    [[ -z $limit ]] && limit="1"
     [[ $conssh -gt $limit ]] && screen -dmS pkill pkill.sh $user
     echo $conssh
 }
@@ -27,7 +27,7 @@ limiter_user() {
     limit1="$(grep -w $user $database1 | cut -d' ' -f2)"
     limit2="$(grep -w $user $database2 | cut -d' ' -f2)"
     limit="${limit1:-$limit2}"
-    [[ -z $limit ]] && limit=0
+    [[ -z $limit ]] && limit="1"
     echo $limit
 }
 
